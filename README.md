@@ -15,7 +15,7 @@ The application is deployed using Kubernetes with the following components:
 - 🚪 **Ingress Controller (Nginx)** to manage external access.
 - 💾 **Persistent Volumes & StorageClass** to handle database persistence.
 
-The application follows this architecture:
+The application's architecture:
 
 ```
 +--------------------+      +--------------------+
