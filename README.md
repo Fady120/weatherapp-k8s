@@ -15,8 +15,7 @@ The application is deployed using Kubernetes with the following components:
 - 🚪 **Ingress Controller (Nginx)** to manage external access.
 - 💾 **Persistent Volumes & StorageClass** to handle database persistence.
 
-The application's architecture:
-
+The application follows this architecture:
 ```
 +--------------------+      +--------------------+
 |  Weather App UI   | <--> |   Auth Service    |
