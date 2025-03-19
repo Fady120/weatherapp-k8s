@@ -44,4 +44,8 @@ kubectl apply -f manifests/
 - If using **NodePort**, get the external IP:
 ```bash
 kubectl get svc weatherapp-ui
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 2bbb8acaf851a2957645d02d94eb040834202271
