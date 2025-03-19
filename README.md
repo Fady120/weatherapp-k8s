@@ -24,6 +24,8 @@ This is a **microservices-based weather application** deployed on **Kubernetes**
 ```
 
 ## Deployment
+This project is deployed on a **Kind (Kubernetes in Docker) cluster** for local development and testing.
+
 To deploy this project on Kubernetes, follow these steps:
 
 1️⃣ **Clone the repo**
@@ -43,7 +45,3 @@ kubectl apply -f manifests/
 ```bash
 kubectl get svc weatherapp-ui
 ```
-
-## Security Considerations
-🔴 If deploying in a real environment, **do not store secrets in GitHub**. Use external secrets management like **Kubernetes Secrets** or **HashiCorp Vault**.
-
