@@ -1,54 +1,102 @@
-# Weather App on Kubernetes ☁️🚀
+# 🌦️ WeatherApp - Kubernetes Deployment
 
-## Overview
-This is a **microservices-based weather application** deployed on **Kubernetes**. It consists of authentication, weather data retrieval, and a web UI, all running inside a scalable and secure Kubernetes environment.
+## 🔥 Overview
+WeatherApp is a cloud-native application deployed on a **Kubernetes KIND (Kubernetes in Docker) cluster**. It consists of multiple microservices, including:
+- 🖥️ **Frontend UI (`weatherapp-ui`)** - The user interface for interacting with the app.
+- ☁️ **Weather Service (`weatherapp-weather`)** - Fetches weather data from an external API.
+- 🔐 **Authentication Service (`weatherapp-auth`)** - Manages user authentication.
+- 🗄️ **MySQL Database (`mysql`)** - Stores user authentication data.
 
-## Features
-✅ **Authentication Service** – Handles user login and authentication. 🔐  
-✅ **Weather Service** – Fetches real-time weather data from an external API. ☁️  
-✅ **User Interface** – A web frontend for users to interact with the app. 🎨  
-✅ **MySQL Database** – Stores user authentication details. 🗄️  
-✅ **Kubernetes Deployment** – Uses Deployments, StatefulSets, Ingress, and Secrets for a cloud-native setup. ⚙️  
-✅ **Ingress with TLS** – Secures external access to the UI. 🔒  
+## 🏗️ Architecture
+The application is deployed using Kubernetes with the following components:
+- 📦 **Deployments** for frontend, weather service, and authentication service.
+- 🏗️ **StatefulSet** for MySQL to ensure persistent data storage.
+- 🌐 **Services** to expose application components.
+- 🚪 **Ingress Controller (Nginx)** to manage external access.
+- 💾 **Persistent Volumes & StorageClass** to handle database persistence.
 
-## Architecture
+The application follows this architecture:
+
 ```
-+-------------------+     +-------------------+
-|  Weather App UI  | <-> |  Auth Service     |
-+-------------------+     +-------------------+
-       |                        |
-       v                        v
-+-------------------+     +-------------------+
-|  Weather Service |     |  MySQL Database  |
-+-------------------+     +-------------------+
-```
-
-## Deployment
-This project is deployed on a **Kind (Kubernetes in Docker) cluster** for local development and testing. The container images used in this project are built to support the **ARM architecture**, making them compatible with ARM-based systems like Apple Silicon (M1/M2) and Raspberry Pi.
-
-### Prerequisites
-Ensure you have the following installed:
-- [Kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker)
-- kubectl
-- Docker
-This project is deployed on a **Kind (Kubernetes in Docker) cluster** for local development and testing.
-
-To deploy this project on Kubernetes, follow these steps:
-
-1️⃣ **Clone the repo**
-```bash
-git clone https://github.com/yourusername/weatherapp-k8s.git
-cd weatherapp-k8s
++--------------------+      +--------------------+
+|  Weather App UI   | <--> |   Auth Service    |
++--------------------+      +--------------------+
+           |                          |
+           v                          v
++--------------------+      +--------------------+
+|  Weather Service  |      |  MySQL Database   |
++--------------------+      +--------------------+
 ```
 
-2️⃣ **Apply Kubernetes manifests**
-```bash
-kubectl apply -f manifests/
+## 📋 Prerequisites
+Before deploying WeatherApp, ensure you have the following installed:
+- 🐳 [Docker](https://www.docker.com/)
+- ☸️ [Kubernetes KIND](https://kind.sigs.k8s.io/) or [Minikube](https://minikube.sigs.k8s.io/docs/)
+- 🔧 [Kubectl](https://kubernetes.io/docs/tasks/tools/)
+
+## 🔎 Notes
+- While this guide focuses on deploying using a **KIND cluster**, you can also use **Minikube** or any other Kubernetes cluster.
+- The container images used in this project are built for **ARM architecture**, making them suitable for platforms like Raspberry Pi or Apple Silicon Macs.
+- **Secrets and TLS certificates are not included in the repository.** You need to create your own Kubernetes Secrets and provide the required certificates for secure communication.
+
+## 🛠️ Setup KIND Cluster
+To create a KIND cluster for this project, run:
+```sh
+kind create cluster --name weatherapp
 ```
 
-3️⃣ **Access the application**
-- If using **Ingress**, open `https://weatherapp.local`
-- If using **NodePort**, get the external IP:
-```bash
-kubectl get svc weatherapp-ui
+## 🚀 Deploying WeatherApp
+### 1️⃣ Clone the repository
+```sh
+git clone https://github.com/YOUR_GITHUB_USERNAME/weatherapp.git
+cd weatherapp
+```
+
+### 2️⃣ Apply Kubernetes manifests
+```sh
+kubectl apply -f storageclass.yaml
+kubectl apply -f statefulset.yaml
+kubectl apply -f headless-service.yaml
+kubectl apply -f init-job.yaml
+kubectl apply -f deployment.yaml
+kubectl apply -f deployment\ 2.yaml
+kubectl apply -f deployment\ 3.yaml
+kubectl apply -f service.yaml
+kubectl apply -f service\ 2.yaml
+kubectl apply -f service\ 3.yaml
+kubectl apply -f ingress.yaml
+```
+
+### 3️⃣ Verify Deployment
+```sh
+kubectl get pods
+kubectl get services
+kubectl get ingress
+```
+
+### 4️⃣ Access the Application
+Once deployed, access the application at:
+```sh
+http://weatherapp.local
+```
+Ensure that your `/etc/hosts` file has an entry for `weatherapp.local` pointing to your cluster IP.
+
+## ⚙️ Managing the Deployment
+### 📈 Scaling Up Services
+To scale a deployment (e.g., frontend UI) to 3 replicas:
+```sh
+kubectl scale deployment weatherapp-ui --replicas=3
+```
+
+### 📜 Viewing Logs
+To check logs for any service:
+```sh
+kubectl logs -l app.kubernetes.io/name=weatherapp-ui
+```
+
+### 🗑️ Deleting the Deployment
+To remove all resources:
+```sh
+kubectl delete -f .
+kind delete cluster --name weatherapp
 ```
