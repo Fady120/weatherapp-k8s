@@ -26,6 +26,13 @@ This is a **microservices-based weather application** deployed on **Kubernetes**
 ## Deployment
 This project is deployed on a **Kind (Kubernetes in Docker) cluster** for local development and testing. The container images used in this project are built to support the **ARM architecture**, making them compatible with ARM-based systems like Apple Silicon (M1/M2) and Raspberry Pi.
 
+### Prerequisites
+Ensure you have the following installed:
+- [Kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker)
+- kubectl
+- Docker
+This project is deployed on a **Kind (Kubernetes in Docker) cluster** for local development and testing.
+
 To deploy this project on Kubernetes, follow these steps:
 
 1️⃣ **Clone the repo**
@@ -44,8 +51,4 @@ kubectl apply -f manifests/
 - If using **NodePort**, get the external IP:
 ```bash
 kubectl get svc weatherapp-ui
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> 2bbb8acaf851a2957645d02d94eb040834202271
