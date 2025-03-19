@@ -47,14 +47,3 @@ kubectl get svc weatherapp-ui
 ## Security Considerations
 🔴 If deploying in a real environment, **do not store secrets in GitHub**. Use external secrets management like **Kubernetes Secrets** or **HashiCorp Vault**.
 
-## Future Enhancements
-🔹 Add autoscaling with **Horizontal Pod Autoscaler (HPA)**  
-🔹 Integrate **monitoring & logging** (Prometheus, Grafana)  
-🔹 Implement **CI/CD** for automated deployments  
-
-## License
-This project is open-source and available under the MIT License.
-
----
-**🚀 Let's connect!** If you're into **Kubernetes, DevOps, or Cloud**, feel free to reach out! 🤝
-
